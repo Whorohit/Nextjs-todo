@@ -1,8 +1,8 @@
 'use client'
 import { useTodos } from '@/store'
-import React from 'react'
+import React, { Suspense } from 'react'
 import { useSearchParams } from 'next/navigation';
-function Todo() {
+function TodoWithout() {
     const searchParams= useSearchParams();
     const todoFilter=searchParams.get('todos')
     const { todos,toggleTodoAscompleted,handleTodoDelete } = useTodos()
@@ -40,4 +40,13 @@ function Todo() {
     )
 }
 
-export default Todo
+
+function   Todo() {
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <TodoWithout />
+      </Suspense>
+    );
+  }
+  
+  export default Todo;
